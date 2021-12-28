@@ -91,7 +91,7 @@ body {
 }
 
 #app {
-  background-image: url('./assets/cold-bg.jpg');
+  background-color: blue;
   background-size: cover;
   background-position: bottom;
   transition: .4s;
@@ -100,7 +100,7 @@ body {
 }
 
 #app.warm {
-  background-image: url('./assets/warm-bg.jpg');
+  background-color: red;
 }
 main {
   min-height: 100vh;
