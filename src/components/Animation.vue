@@ -11,19 +11,22 @@ export default {
         weatherName : Object
     },
     methods: {
+        // Stops the animation when changing from one city to another
         resetAnimation() {
             let container = document.querySelector('.container')
             container.innerHTML = '';
         },
-        randomNumberSnowflake() {
+        randomNumberObject() {
             return Math.floor(Math.random() * (50 - 25) ) + 50;
         },
-        randomSnowflakeposition() {
+        randomObjectposition() {
             return Math.floor(Math.random() * (100 - 0) ) + 0;
         },
+        // Cloud animation
         clouds() {
             this.resetAnimation();
             let container = document.querySelector('.container')
+            //creating cloud divs
             let cloud = document.createElement("Div");
             cloud.className = "cloud";
             container.appendChild(cloud);
@@ -58,59 +61,66 @@ export default {
                 direction : 'normal'
             });
         },
+        // Snow animation
         snow() {
             this.resetAnimation();
             let container = document.querySelector('.container')
+            // Creating background, middle, foreground layers
             for ( let i = 0; i < 3; i++) {
                 let layer = document.createElement("Div");
                 layer.className = "layer";
                 container.appendChild(layer);
             }
+            // assigning respective classes to all 3 layers
             const layerList = container.childNodes;
             const layerNames = ['back', 'middle', 'front']
             for ( let j = 0; j < layerList.length; j++) {
                 layerList[j].classList.add(layerNames[j]);
             }
+            // creating snowflakes in the background
             const backLayer = document.querySelector('.back')
-            for ( let k = 0; k < this.randomNumberSnowflake(); k++) {
+            for ( let k = 0; k < this.randomNumberObject(); k++) {
                 let snowflake = document.createElement("Div");
                 backLayer.appendChild(snowflake);
                 snowflake.classList.add('snowflake');
                 snowflake.style.position = 'absolute';
-                snowflake.style.top = `${this.randomSnowflakeposition() - 100}%`;
-                snowflake.style.left = `${this.randomSnowflakeposition()}%`;
+                snowflake.style.top = `${this.randomObjectposition() - 100}%`;
+                snowflake.style.left = `${this.randomObjectposition()}%`;
                 snowflake.style.width = '5px';
                 snowflake.style.height = '5px';
                 snowflake.style.background = '#ffffff';
                 snowflake.style.borderRadius = '50%';
             }
+            // creating snowflakes in the middle layer
             const middleLayer = document.querySelector('.middle')
-            for ( let k = 0; k < this.randomNumberSnowflake(); k++) {
+            for ( let k = 0; k < this.randomNumberObject(); k++) {
                 let snowflake = document.createElement("Div");
                 snowflake.classList.add('snowflake');
                 middleLayer.appendChild(snowflake);
                 snowflake.style.position = 'absolute';
-                snowflake.style.top = `${this.randomSnowflakeposition() - 100}%`;
-                snowflake.style.left = `${this.randomSnowflakeposition()}%`;
+                snowflake.style.top = `${this.randomObjectposition() - 100}%`;
+                snowflake.style.left = `${this.randomObjectposition()}%`;
                 snowflake.style.width = '10px';
                 snowflake.style.height = '10px';
                 snowflake.style.background = '#ffffff';
                 snowflake.style.borderRadius = '50%';
 
             }
+            // creating snowflakes in the foreground
             const frontLayer = document.querySelector('.front')
-            for ( let k = 0; k < this.randomNumberSnowflake(); k++) {
+            for ( let k = 0; k < this.randomNumberObject(); k++) {
                 let snowflake = document.createElement("Div");
                 snowflake.classList.add('snowflake');
                 frontLayer.appendChild(snowflake);
                 snowflake.style.position = 'absolute';
-                snowflake.style.top = `${this.randomSnowflakeposition() - 100}%`;
-                snowflake.style.left = `${this.randomSnowflakeposition()}%`;
+                snowflake.style.top = `${this.randomObjectposition() - 100}%`;
+                snowflake.style.left = `${this.randomObjectposition()}%`;
                 snowflake.style.width = '15px';
                 snowflake.style.height = '15px';
                 snowflake.style.background = '#ffffff';
                 snowflake.style.borderRadius = '50%';
             }
+            // animating snowflakes towards the bottom of the page
             anime({
                 targets : '.back .snowflake',
                 top : "105%",
@@ -140,6 +150,93 @@ export default {
             });
                 
         },
+        rain() {
+            this.resetAnimation();
+            let container = document.querySelector('.container')
+            // Creating background, middle, foreground layers
+            for ( let i = 0; i < 3; i++) {
+                let layer = document.createElement("Div");
+                layer.className = "layer";
+                container.appendChild(layer);
+            }
+            // assigning respective classes to all 3 layers
+            const layerList = container.childNodes;
+            const layerNames = ['back', 'middle', 'front']
+            for ( let j = 0; j < layerList.length; j++) {
+                layerList[j].classList.add(layerNames[j]);
+            }
+            // creating raindrops in the background
+            const backLayer = document.querySelector('.back')
+            for ( let k = 0; k < this.randomNumberObject(); k++) {
+                let raindrop = document.createElement("Div");
+                backLayer.appendChild(raindrop);
+                raindrop.classList.add('raindrop');
+                raindrop.style.position = 'absolute';
+                raindrop.style.top = `${this.randomObjectposition() - 100}%`;
+                raindrop.style.left = `${this.randomObjectposition()}%`;
+                raindrop.style.width = '1px';
+                raindrop.style.height = '3px';
+                raindrop.style.background = '#ededed';
+                raindrop.style.borderRadius = '25px';
+            }
+            // creating raindrops in the middle layer
+            const middleLayer = document.querySelector('.middle')
+            for ( let k = 0; k < this.randomNumberObject(); k++) {
+                let raindrop = document.createElement("Div");
+                raindrop.classList.add('raindrop');
+                middleLayer.appendChild(raindrop);
+                raindrop.style.position = 'absolute';
+                raindrop.style.top = `${this.randomObjectposition() - 100}%`;
+                raindrop.style.left = `${this.randomObjectposition()}%`;
+                raindrop.style.width = '2px';
+                raindrop.style.height = '6px';
+                raindrop.style.background = '#ededed';
+                raindrop.style.borderRadius = '25px';
+
+            }
+            // creating raindrops in the foreground
+            const frontLayer = document.querySelector('.front')
+            for ( let k = 0; k < this.randomNumberObject(); k++) {
+                let raindrop = document.createElement("Div");
+                raindrop.classList.add('raindrop');
+                frontLayer.appendChild(raindrop);
+                raindrop.style.position = 'absolute';
+                raindrop.style.top = `${this.randomObjectposition() - 100}%`;
+                raindrop.style.left = `${this.randomObjectposition()}%`;
+                raindrop.style.width = '3px';
+                raindrop.style.height = '9px';
+                raindrop.style.background = '#ededed';
+                raindrop.style.borderRadius = '25px';
+            }
+            anime({
+                targets : '.back .raindrop',
+                top : "105%",
+                duration : 4000,
+                loop : true,
+                easing : 'linear',
+                direction : 'normal',
+                delay : anime.stagger(50)
+            });
+            anime({
+                targets : '.middle .raindrop',
+                top : "105%",
+                duration : 3000,
+                loop : true,
+                easing : 'linear',
+                direction : 'normal',
+                delay : anime.stagger(50)
+            });
+            anime({
+                targets : '.front .raindrop',
+                top : "105%",
+                duration : 2000,
+                loop : true,
+                easing : 'linear',
+                direction : 'normal',
+                delay : anime.stagger(50)
+            });
+
+        },
         clear() {
             this.resetAnimation();
             alert('clear');
@@ -151,10 +248,6 @@ export default {
         drizzle() {
             this.resetAnimation();
             alert('drizzle');
-        },
-        rain() {
-            this.resetAnimation();
-            alert('rain');
         },
         mist() {
             this.resetAnimation();
@@ -378,5 +471,7 @@ export default {
     .layer.front{
         z-index: 0;
     }
+    /* RAIN */ 
+
 }
 </style>
