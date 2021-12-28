@@ -17,7 +17,8 @@
         </div>
         <div class="weather-box">
           <div class="temp">{{Math.round(weather.main.temp)}}°C</div>
-          <div class="weather">{{weather.weather[0].main}}</div>
+          <div class="icon"><img :src="`http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`" alt="Weather Icon"></div>
+          <div class="weather">{{weather.weather[0].main}} </div>
         </div>
       </div>
     </main>
@@ -32,7 +33,7 @@ export default {
       api_key : '5c91c46023d7f1646dce8d2f732f5e3b',
       url_base: 'http://api.openweathermap.org/data/2.5/',
       query: '',
-      weather : {},
+      weather : {}
     }
   },
   methods: {
