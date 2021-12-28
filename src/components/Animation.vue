@@ -10,12 +10,16 @@ export default {
     props : {
         weatherName : Object
     },
-    data() {
-    },
     methods: {
         resetAnimation() {
             let container = document.querySelector('.container')
             container.innerHTML = '';
+        },
+        randomNumberSnowflake() {
+            return Math.floor(Math.random() * (50 - 25) ) + 50;
+        },
+        randomSnowflakeposition() {
+            return Math.floor(Math.random() * (100 - 0) ) + 0;
         },
         clouds() {
             this.resetAnimation();
@@ -54,6 +58,88 @@ export default {
                 direction : 'normal'
             });
         },
+        snow() {
+            this.resetAnimation();
+            let container = document.querySelector('.container')
+            for ( let i = 0; i < 3; i++) {
+                let layer = document.createElement("Div");
+                layer.className = "layer";
+                container.appendChild(layer);
+            }
+            const layerList = container.childNodes;
+            const layerNames = ['back', 'middle', 'front']
+            for ( let j = 0; j < layerList.length; j++) {
+                layerList[j].classList.add(layerNames[j]);
+            }
+            const backLayer = document.querySelector('.back')
+            for ( let k = 0; k < this.randomNumberSnowflake(); k++) {
+                let snowflake = document.createElement("Div");
+                backLayer.appendChild(snowflake);
+                snowflake.classList.add('snowflake');
+                snowflake.style.position = 'absolute';
+                snowflake.style.top = `${this.randomSnowflakeposition() - 100}%`;
+                snowflake.style.left = `${this.randomSnowflakeposition()}%`;
+                snowflake.style.width = '5px';
+                snowflake.style.height = '5px';
+                snowflake.style.background = '#ffffff';
+                snowflake.style.borderRadius = '50%';
+            }
+            const middleLayer = document.querySelector('.middle')
+            for ( let k = 0; k < this.randomNumberSnowflake(); k++) {
+                let snowflake = document.createElement("Div");
+                snowflake.classList.add('snowflake');
+                middleLayer.appendChild(snowflake);
+                snowflake.style.position = 'absolute';
+                snowflake.style.top = `${this.randomSnowflakeposition() - 100}%`;
+                snowflake.style.left = `${this.randomSnowflakeposition()}%`;
+                snowflake.style.width = '10px';
+                snowflake.style.height = '10px';
+                snowflake.style.background = '#ffffff';
+                snowflake.style.borderRadius = '50%';
+
+            }
+            const frontLayer = document.querySelector('.front')
+            for ( let k = 0; k < this.randomNumberSnowflake(); k++) {
+                let snowflake = document.createElement("Div");
+                snowflake.classList.add('snowflake');
+                frontLayer.appendChild(snowflake);
+                snowflake.style.position = 'absolute';
+                snowflake.style.top = `${this.randomSnowflakeposition() - 100}%`;
+                snowflake.style.left = `${this.randomSnowflakeposition()}%`;
+                snowflake.style.width = '15px';
+                snowflake.style.height = '15px';
+                snowflake.style.background = '#ffffff';
+                snowflake.style.borderRadius = '50%';
+            }
+            anime({
+                targets : '.back .snowflake',
+                top : "105%",
+                duration : 8000,
+                loop : true,
+                easing : 'linear',
+                direction : 'normal',
+                delay : anime.stagger(100)
+            });
+            anime({
+                targets : '.middle .snowflake',
+                top : "105%",
+                duration : 6000,
+                loop : true,
+                easing : 'linear',
+                direction : 'normal',
+                delay : anime.stagger(100)
+            });
+            anime({
+                targets : '.front .snowflake',
+                top : "105%",
+                duration : 4000,
+                loop : true,
+                easing : 'linear',
+                direction : 'normal',
+                delay : anime.stagger(100)
+            });
+                
+        },
         clear() {
             this.resetAnimation();
             alert('clear');
@@ -69,10 +155,6 @@ export default {
         rain() {
             this.resetAnimation();
             alert('rain');
-        },
-        snow() {
-            this.resetAnimation();
-            alert('snow');
         },
         mist() {
             this.resetAnimation();
@@ -175,7 +257,7 @@ export default {
     top:0;
     left: 0;
     z-index: -1;
-    overflow-x: hidden;
+    overflow: hidden;
     /* CLOUDS */ 
     .cloud {
         background-color: #d8d8d8;
@@ -280,6 +362,21 @@ export default {
             top: -76px;
             left: 296px;
         }
+    }
+    /* SNOW */
+    .layer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    .layer.back{
+        z-index: -2;
+    }
+    .layer.middle{
+        z-index: -1;
+    }
+    .layer.front{
+        z-index: 0;
     }
 }
 </style>
