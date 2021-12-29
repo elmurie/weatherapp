@@ -85,6 +85,12 @@ export default {
         this.isItDayOrNight = 'Night';
       }
     },
+    bgChooser() {
+      let d = new Date();
+      let hour = d.getHours;
+      console.log('ore', hour)
+      this.hourBg = hour;
+    },
     fetchWeather (e) {
       if (e.key == "Enter") {
         fetch(`${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
@@ -107,11 +113,14 @@ export default {
       let date = d.getDate();
       let month = months[d.getMonth()];
       let year = d.getFullYear();
-      let hour = d.getHours;
-      this.hourBg = hour;
-
       return `${day} ${date} ${month}, ${year}`;
     }
+  },
+  created() {
+      let d = new Date();
+      let hour = d.getHours();
+      console.log('ore', hour)
+      this.hourBg = hour;
   }
 }
 </script>
