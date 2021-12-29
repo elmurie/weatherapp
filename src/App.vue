@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :style="hourBg >= 6 && hourBg <= 18 ? `background-image : url(${dayBg})` : `background-image : url(${nightBg})`">
     <Animation :weatherName="weather" :dayOrNight="isItDayOrNight"/>
     <main>
       <div class="search-box">
@@ -8,7 +8,7 @@
           type="text"
           placeholder="Search for a city..."
           v-model="query"
-          @keypress="fetchWeather"
+          @keyup="fetchWeather"
         >
       </div>
       <div class="weather-wrap" v-if="typeof weather.main != 'undefined' ">
@@ -70,7 +70,10 @@ export default {
       url_base: 'https://api.openweathermap.org/data/2.5/',
       query: '',
       weather : {},
-      isItDayOrNight : ''
+      isItDayOrNight : '',
+      hourBg : 0,
+      nightBg : 'https://i.imgur.com/G8HPRuc.jpg',
+      dayBg : 'https://i.imgur.com/fbTfPz5.jpg' 
     }
   },
   methods: {
@@ -104,6 +107,8 @@ export default {
       let date = d.getDate();
       let month = months[d.getMonth()];
       let year = d.getFullYear();
+      let hour = d.getHours;
+      this.hourBg = hour;
 
       return `${day} ${date} ${month}, ${year}`;
     }
@@ -126,9 +131,8 @@ body {
 }
 
 #app {
-  background-color: aquamarine;
-  height: 100vh;
-  overflow: hidden;
+  background-size: cover;
+  background-repeat: no-repeat;
   transition: .4s;
   position: relative;
   z-index: 0;
@@ -137,7 +141,7 @@ body {
 main {
   min-height: 100vh;
   padding: 25px;
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.75));
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
   z-index: 2;
 }
 .search-box {
@@ -259,7 +263,7 @@ main {
   text-align: center;
 }
 .message h2 {
-  color : #cf5904;
+  color : #ffffff;
   text-shadow: 1px 3px rgba(0, 0, 0, 0.25);
   font-size: 54px;
 }
