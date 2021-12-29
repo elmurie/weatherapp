@@ -152,7 +152,7 @@ export default {
                 backLayer.appendChild(snowflake);
                 snowflake.classList.add('snowflake');
                 snowflake.style.position = 'absolute';
-                snowflake.style.top = `${this.randomObjectposition() - 100}%`;
+                snowflake.style.top = `-105%`;
                 snowflake.style.left = `${this.randomObjectposition()}%`;
                 snowflake.style.width = '5px';
                 snowflake.style.height = '5px';
@@ -166,7 +166,7 @@ export default {
                 snowflake.classList.add('snowflake');
                 middleLayer.appendChild(snowflake);
                 snowflake.style.position = 'absolute';
-                snowflake.style.top = `${this.randomObjectposition() - 100}%`;
+                snowflake.style.top = `-105%`;
                 snowflake.style.left = `${this.randomObjectposition()}%`;
                 snowflake.style.width = '10px';
                 snowflake.style.height = '10px';
@@ -181,7 +181,7 @@ export default {
                 snowflake.classList.add('snowflake');
                 frontLayer.appendChild(snowflake);
                 snowflake.style.position = 'absolute';
-                snowflake.style.top = `${this.randomObjectposition() - 100}%`;
+                snowflake.style.top = `-105%`;
                 snowflake.style.left = `${this.randomObjectposition()}%`;
                 snowflake.style.width = '20px';
                 snowflake.style.height = '20px';

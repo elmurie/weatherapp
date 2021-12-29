@@ -15,21 +15,43 @@
         <div class="location-box">
           <div class="location">{{weather.name}}, {{weather.sys.country}}</div>
           <div class="date">{{dateBuilder()}}</div>
-        </div>
-        <div class="weather-box">
-          <div class="temp">{{Math.round(weather.main.temp)}}°C</div>
           <div class="icon">
             <img :src="`http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`" alt="Weather Icon">
             <div class="day-night">{{isItDayOrNight}}</div>
           </div>
+        </div>
+        <div class="weather-box">
+          <div class="temp">{{Math.round(weather.main.temp)}}°C</div>
           <div class="weather">{{weather.weather[0].main}}</div>
+          <div class="weather-extra">
+            <div class="top">
+              <div class="min">
+                <h6 class="title">MIN</h6>
+                <h6 class="value">{{Math.round(weather.main.temp_min)}}°C</h6>
+              </div>
+              <div class="max">
+                <h6 class="title">MAX</h6>
+                <h6 class="value">{{Math.round(weather.main.temp_max)}}°C</h6>
+              </div>
+            </div>
+            <div class="bottom">
+              <div class="humidity">
+                <h6 class="title">HUMIDITY</h6>
+                <h6 class="value">{{weather.main.humidity}}%</h6>
+              </div>
+              <div class="wind">
+                <h6 class="title">WIND</h6>
+                <h6 class="value">{{weather.wind.speed}}m/s</h6>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="message no-result" v-else-if="weather.cod == '400' || weather.cod == '404'">
-        <h2>Enter a valid city</h2>
+        <h2>Please enter a valid city</h2>
       </div>
       <div class="message enter" v-else>
-        <h2>Check the weather!</h2>
+        <h2>WEATHER APP</h2>
       </div>
     </main>
   </div>
@@ -90,6 +112,7 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Rammetto+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 * {
   margin: 0;
@@ -103,9 +126,9 @@ body {
 }
 
 #app {
-  background-image: url('https://media.cntraveler.com/photos/581ca7f96928748a1e19f0b6/16:9/w_2560%2Cc_limit/Kirkjufell-Iceland-GettyImages-482743085.jpg');
+  background-image: url('https://images.unsplash.com/photo-1543837173-6c26bc89937b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8M3x8fGVufDB8fHx8&w=1000&q=80');
   background-size: cover;
-  background-position: bottom;
+  background-position: center center;
   transition: .4s;
   position: relative;
   z-index: 0;
@@ -114,16 +137,18 @@ body {
 main {
   min-height: 100vh;
   padding: 25px;
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.75));
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.75));
   z-index: 2;
 }
 .search-box {
   width: 100%;
   margin-bottom: 30px;
+  text-align: center;
 }
 .search-box .search-bar {
-  display: block;
+  display: inline-block;
   width: 100%;
+  max-width: 500px;
   padding: 15px;
   color: #313131;
   font-size: 20px;
@@ -141,6 +166,8 @@ main {
 ::placeholder {
   color: rgb(31, 31, 31);
   font-weight: 700;
+  font-family: 'Roboto', sans-serif;
+
 }
 
 .search-box .search-bar:focus {
@@ -164,6 +191,7 @@ main {
 }
 .weather-box {
   text-align: center;
+  color : #fff;
 }
 .weather-box .temp {
   display: inline-block;
@@ -172,7 +200,7 @@ main {
   font-size: 102px;
   font-weight: 700;
   text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
-  background-color: rgba(255, 255, 255, 0.25);
+  background-color: rgba(65, 65, 65, 0.25);
   border-radius: 16px;
   margin: 30px auto;
   box-shadow: 3px 6px rgba(0, 0, 0, 0.25);
@@ -185,16 +213,46 @@ main {
   color: #fff;
   text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
 }
-.weather-box .icon {
+.location-box .icon {
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
 }
-.weather-box .icon .day-night {
+
+.location-box .icon img {
+  -webkit-filter: drop-shadow(5px 5px 2px #222);
+  filter: drop-shadow(0px 0px 5px #fff);
+}
+.location-box .icon .day-night {
   font-size: 30px;
   font-weight: 500;
+}
 
+.weather-extra,
+.weather-extra .top,
+.weather-extra .bottom {
+  display: flex;
+}
+
+.weather-extra {
+  max-width: 500px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.weather-extra h6 {
+  font-size: 28px;
+  text-shadow: 3px 3px rgba(0, 0, 0, 0.25);
+}
+
+.weather-extra .top,
+.weather-extra .bottom {
+  justify-content: space-around;
+  width: 95%;
+  margin: 10px 0;
 }
 
 .message {
@@ -204,6 +262,10 @@ main {
   color : #fff;
   text-shadow: 1px 3px rgba(0, 0, 0, 0.25);
   font-size: 54px;
+}
+
+.enter {
+  font-family: 'Rammetto One', cursive;
 }
 
 </style>
