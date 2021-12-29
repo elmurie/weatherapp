@@ -245,7 +245,7 @@ export default {
                 backLayer.appendChild(raindrop);
                 raindrop.classList.add('raindrop');
                 raindrop.style.position = 'absolute';
-                raindrop.style.top = `${this.randomObjectposition() - 100}%`;
+                raindrop.style.top = `-105%`;
                 raindrop.style.left = `${this.randomObjectposition()}%`;
                 raindrop.style.width = '1px';
                 raindrop.style.height = '6px';
@@ -259,7 +259,7 @@ export default {
                 raindrop.classList.add('raindrop');
                 middleLayer.appendChild(raindrop);
                 raindrop.style.position = 'absolute';
-                raindrop.style.top = `${this.randomObjectposition() - 100}%`;
+                raindrop.style.top = `-105%`;
                 raindrop.style.left = `${this.randomObjectposition()}%`;
                 raindrop.style.width = '2px';
                 raindrop.style.height = '12px';
@@ -274,7 +274,7 @@ export default {
                 raindrop.classList.add('raindrop');
                 frontLayer.appendChild(raindrop);
                 raindrop.style.position = 'absolute';
-                raindrop.style.top = `${this.randomObjectposition() - 100}%`;
+                raindrop.style.top = `-105%`;
                 raindrop.style.left = `${this.randomObjectposition()}%`;
                 raindrop.style.width = '3px';
                 raindrop.style.height = '18px';
