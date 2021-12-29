@@ -127,6 +127,8 @@ body {
 
 #app {
   background-color: aquamarine;
+  height: 100vh;
+  overflow: hidden;
   transition: .4s;
   position: relative;
   z-index: 0;
