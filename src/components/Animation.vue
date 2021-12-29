@@ -1,5 +1,5 @@
 <template>
-    <div class="container" v-if="weatherName.cod != 404 && weatherName.cod != undefined">
+    <div class="container" v-if="weatherName.cod != 404 && weatherName.cod != undefined" :style="`background-image: url(${bgImage})`">
     </div>
 </template>
 
@@ -8,7 +8,23 @@ import anime from 'animejs/lib/anime.es.js';
 export default {
     name : 'Animation',
     props : {
-        weatherName : Object
+        weatherName : Object,
+        dayOrNight : String
+    },
+    data() {
+        return {
+            bgImage : '',
+            bgSnowDay : require('../assets/img/snow_day.jpg'),
+            bgSnowNight : require('../assets/img/snow_night.jpg'),
+            bgClearDay : require('../assets/img/clear_day.jpg'),
+            bgClearNight : require('../assets/img/clear_night.jpg'),
+            bgCloudNight : require('../assets/img/cloud_night.jpg'),
+            bgCloudDay : require('../assets/img/cloud_day.jpg'),
+            bgFogDay : require('../assets/img/fog_day.webp'),
+            bgFogNight : require('../assets/img/fog_night.jpg'),
+            bgThunderDay : require('../assets/img/thunder_day.jpg'),
+            bgThunderNight : require('../assets/img/thunder_night.webp'),
+        }
     },
     methods: {
         // Stops the animation when changing from one city to another
@@ -25,6 +41,11 @@ export default {
         // Cloud animation
         clouds() {
             this.resetAnimation();
+            if ( this.dayOrNight == 'Day') {
+                this.bgImage = this.bgCloudDay;
+            } else {
+                this.bgImage = this.bgCloudNight;
+            }
             let container = document.querySelector('.container')
             //creating cloud divs
             let cloud = document.createElement("Div");
@@ -64,6 +85,12 @@ export default {
         // Snow animation
         snow() {
             this.resetAnimation();
+            // Change background
+            if ( this.dayOrNight == 'Day') {
+                this.bgImage = this.bgSnowDay;
+            } else {
+                this.bgImage = this.bgSnowNight;
+            }
             let container = document.querySelector('.container')
             // Creating background, middle, foreground layers
             for ( let i = 0; i < 3; i++) {
@@ -115,8 +142,8 @@ export default {
                 snowflake.style.position = 'absolute';
                 snowflake.style.top = `${this.randomObjectposition() - 100}%`;
                 snowflake.style.left = `${this.randomObjectposition()}%`;
-                snowflake.style.width = '15px';
-                snowflake.style.height = '15px';
+                snowflake.style.width = '20px';
+                snowflake.style.height = '20px';
                 snowflake.style.background = '#ffffff';
                 snowflake.style.borderRadius = '50%';
             }
@@ -152,6 +179,11 @@ export default {
         },
         rain() {
             this.resetAnimation();
+            if ( this.dayOrNight == 'Day') {
+                this.bgImage = this.bgCloudDay;
+            } else {
+                this.bgImage = this.bgCloudNight;
+            }
             let container = document.querySelector('.container')
             // Creating background, middle, foreground layers
             for ( let i = 0; i < 3; i++) {
@@ -175,7 +207,7 @@ export default {
                 raindrop.style.top = `${this.randomObjectposition() - 100}%`;
                 raindrop.style.left = `${this.randomObjectposition()}%`;
                 raindrop.style.width = '1px';
-                raindrop.style.height = '3px';
+                raindrop.style.height = '6px';
                 raindrop.style.background = '#ededed';
                 raindrop.style.borderRadius = '25px';
             }
@@ -189,7 +221,7 @@ export default {
                 raindrop.style.top = `${this.randomObjectposition() - 100}%`;
                 raindrop.style.left = `${this.randomObjectposition()}%`;
                 raindrop.style.width = '2px';
-                raindrop.style.height = '6px';
+                raindrop.style.height = '12px';
                 raindrop.style.background = '#ededed';
                 raindrop.style.borderRadius = '25px';
 
@@ -204,7 +236,7 @@ export default {
                 raindrop.style.top = `${this.randomObjectposition() - 100}%`;
                 raindrop.style.left = `${this.randomObjectposition()}%`;
                 raindrop.style.width = '3px';
-                raindrop.style.height = '9px';
+                raindrop.style.height = '18px';
                 raindrop.style.background = '#ededed';
                 raindrop.style.borderRadius = '25px';
             }
@@ -235,10 +267,14 @@ export default {
                 direction : 'normal',
                 delay : anime.stagger(50)
             });
-
         },
         fog() {
             this.resetAnimation();
+            if ( this.dayOrNight == 'Day') {
+                this.bgImage = this.bgFogDay;
+            } else {
+                this.bgImage = this.bgFogNight;
+            }
             let container = document.querySelector('.container')
             // Creating background, middle, foreground layers
             for ( let i = 0; i < 3; i++) {
@@ -273,7 +309,7 @@ export default {
             });
             anime({
                 targets : '.front.fogbank',
-                height : ['38%', '31%'],
+                height : ['38%', '35%'],
                 duration : 6400,
                 loop : true,
                 easing : 'linear',
@@ -282,16 +318,107 @@ export default {
         },
         clear() {
             this.resetAnimation();
-            alert('clear');
+            if ( this.dayOrNight == 'Day') {
+                this.bgImage = this.bgClearDay;
+            } else {
+                this.bgImage = this.bgClearNight;
+            }
         },
         thunderstorm() {
             this.resetAnimation();
-            alert('thunderstorm');
+            if ( this.dayOrNight == 'Day') {
+                this.bgImage = this.bgThunderDay;
+            } else {
+                this.bgImage = this.bgThunderNight;
+            }
+            let container = document.querySelector('.container')
+            // Creating background, middle, foreground layers
+            for ( let i = 0; i < 3; i++) {
+                let layer = document.createElement("Div");
+                layer.className = "layer";
+                container.appendChild(layer);
+            }
+            // assigning respective classes to all 3 layers
+            const layerList = container.childNodes;
+            const layerNames = ['back', 'middle', 'front']
+            for ( let j = 0; j < layerList.length; j++) {
+                layerList[j].classList.add(layerNames[j]);
+            }
+            // creating raindrops in the background
+            const backLayer = document.querySelector('.back')
+            for ( let k = 0; k < this.randomNumberObject() + 500; k++) {
+                let raindrop = document.createElement("Div");
+                backLayer.appendChild(raindrop);
+                raindrop.classList.add('raindrop');
+                raindrop.style.position = 'absolute';
+                raindrop.style.top = `${this.randomObjectposition() - 100}%`;
+                raindrop.style.left = `${this.randomObjectposition()}%`;
+                raindrop.style.width = '1px';
+                raindrop.style.height = '6px';
+                raindrop.style.background = '#ededed';
+                raindrop.style.borderRadius = '25px';
+            }
+            // creating raindrops in the middle layer
+            const middleLayer = document.querySelector('.middle')
+            for ( let k = 0; k < this.randomNumberObject() + 500; k++) {
+                let raindrop = document.createElement("Div");
+                raindrop.classList.add('raindrop');
+                middleLayer.appendChild(raindrop);
+                raindrop.style.position = 'absolute';
+                raindrop.style.top = `${this.randomObjectposition() - 100}%`;
+                raindrop.style.left = `${this.randomObjectposition()}%`;
+                raindrop.style.width = '2px';
+                raindrop.style.height = '12px';
+                raindrop.style.background = '#ededed';
+                raindrop.style.borderRadius = '25px';
+
+            }
+            // creating raindrops in the foreground
+            const frontLayer = document.querySelector('.front')
+            for ( let k = 0; k < this.randomNumberObject() + 500; k++) {
+                let raindrop = document.createElement("Div");
+                raindrop.classList.add('raindrop');
+                frontLayer.appendChild(raindrop);
+                raindrop.style.position = 'absolute';
+                raindrop.style.top = `${this.randomObjectposition() - 100}%`;
+                raindrop.style.left = `${this.randomObjectposition()}%`;
+                raindrop.style.width = '3px';
+                raindrop.style.height = '18px';
+                raindrop.style.background = '#ededed';
+                raindrop.style.borderRadius = '25px';
+            }
+            anime({
+                targets : '.back .raindrop',
+                top : "105%",
+                duration : 2000,
+                loop : true,
+                easing : 'linear',
+                direction : 'normal',
+                delay : anime.stagger(50)
+            });
+            anime({
+                targets : '.middle .raindrop',
+                top : "105%",
+                duration : 800,
+                loop : true,
+                easing : 'linear',
+                direction : 'normal',
+                delay : anime.stagger(50)
+            });
+            anime({
+                targets : '.front .raindrop',
+                top : "105%",
+                duration : 500,
+                loop : true,
+                easing : 'linear',
+                direction : 'normal',
+                delay : anime.stagger(50)
+            });
         },
     },
     updated() {
-            let weatherType = this.weatherName.weather[0].main;
-            // let weatherType = 'Fog'; ///////////////DEBUGGING!!!!!!!!!!!!!!!!
+            // let weatherType = this.weatherName.weather[0].main;
+            let weatherType = 'Fog'; ///////////////DEBUGGING!!!!!!!!!!!!!!!!
             console.log(weatherType);
             switch (weatherType) {
                 case 'Clouds' :
@@ -355,6 +482,12 @@ export default {
     left: 0;
     z-index: -1;
     overflow: hidden;
+    background: rgba(0, 0, 0, 0.1);
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    transition: .4s;
     /* CLOUDS */ 
     .cloud {
         background-color: #d8d8d8;
@@ -476,6 +609,13 @@ export default {
         z-index: 0;
     }
     /* FOG */ 
+    .fogbank {
+        -webkit-filter: blur(10px);
+        -moz-filter: blur(10px);
+        -o-filter: blur(10px);
+        -ms-filter: blur(10px);
+        filter: blur(5px);
+    }
     .fogbank.back {
         z-index: -2;
         background-color: #fff;
@@ -486,14 +626,13 @@ export default {
         background-color: #fff;
         z-index: -1;
         height: 45%;
-        opacity: .4;
+        opacity: .2;
     }
     .fogbank.front {
         z-index: 0;
         background-color: #fff;
         height: 30%;
-        opacity: .5;
-
+        opacity: .1;
     }
 
 }

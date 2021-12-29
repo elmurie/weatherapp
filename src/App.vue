@@ -1,6 +1,6 @@
 <template>
-  <div id="app" :class="typeof weather.main != 'undefined' && weather.main.temp > 16 ? 'warm' : '' ">
-    <Animation :weatherName="weather"/>
+  <div id="app">
+    <Animation :weatherName="weather" :dayOrNight="isItDayOrNight"/>
     <main>
       <div class="search-box">
         <input 
@@ -18,8 +18,11 @@
         </div>
         <div class="weather-box">
           <div class="temp">{{Math.round(weather.main.temp)}}°C</div>
-          <div class="icon"><img :src="`http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`" alt="Weather Icon"> <div class="day-night">{{dayNight()}}</div></div>
-          <div class="weather">{{weather.weather[0].main}} </div>
+          <div class="icon">
+            <img :src="`http://openweathermap.org/img/wn/${weather.weather[0].icon}.png`" alt="Weather Icon">
+            <div class="day-night">{{isItDayOrNight}}</div>
+          </div>
+          <div class="weather">{{weather.weather[0].main}}</div>
         </div>
       </div>
     </main>
@@ -39,9 +42,18 @@ export default {
       url_base: 'http://api.openweathermap.org/data/2.5/',
       query: '',
       weather : {},
+      isItDayOrNight : ''
     }
   },
   methods: {
+    dayNight() {
+      let letterPosition = this.weather.weather[0].icon.length - 1;
+      if (this.weather.weather[0].icon[letterPosition] == 'd') {
+        this.isItDayOrNight = "Day";
+      } else {
+        this.isItDayOrNight = 'Night';
+      }
+    },
     fetchWeather (e) {
       if (e.key == "Enter") {
         fetch(`${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
@@ -52,6 +64,7 @@ export default {
     },
     setResults(results) {
       this.weather = results;
+      this.dayNight();
     },
     dateBuilder() {
       let d = new Date();
@@ -64,14 +77,6 @@ export default {
       let year = d.getFullYear();
 
       return `${day} ${date} ${month}, ${year}`;
-    },
-    dayNight() {
-      let letterPosition = this.weather.weather[0].icon.length - 1;
-      if (this.weather.weather[0].icon[letterPosition] == 'd') {
-        return "Day";
-      } else {
-        return 'Night';
-      }
     }
   }
 }
@@ -99,9 +104,6 @@ body {
   z-index: 0;
 }
 
-#app.warm {
-  background-color: red;
-}
 main {
   min-height: 100vh;
   padding: 25px;
