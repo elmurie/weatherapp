@@ -67,7 +67,7 @@ export default {
   data() {
     return {
       api_key : '5c91c46023d7f1646dce8d2f732f5e3b',
-      url_base: 'http://api.openweathermap.org/data/2.5/',
+      url_base: 'https://api.openweathermap.org/data/2.5/',
       query: '',
       weather : {},
       isItDayOrNight : ''
@@ -126,9 +126,7 @@ body {
 }
 
 #app {
-  background-image: url('https://images.unsplash.com/photo-1543837173-6c26bc89937b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8M3x8fGVufDB8fHx8&w=1000&q=80');
-  background-size: cover;
-  background-position: center center;
+  background-color: aquamarine;
   transition: .4s;
   position: relative;
   z-index: 0;
@@ -142,7 +140,7 @@ main {
 }
 .search-box {
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   text-align: center;
 }
 .search-box .search-bar {
@@ -202,7 +200,7 @@ main {
   text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
   background-color: rgba(65, 65, 65, 0.25);
   border-radius: 16px;
-  margin: 30px auto;
+  margin: 15px auto;
   box-shadow: 3px 6px rgba(0, 0, 0, 0.25);
 }
 
@@ -259,7 +257,7 @@ main {
   text-align: center;
 }
 .message h2 {
-  color : #fff;
+  color : #cf5904;
   text-shadow: 1px 3px rgba(0, 0, 0, 0.25);
   font-size: 54px;
 }

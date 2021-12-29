@@ -49,7 +49,7 @@ export default {
             let container = document.querySelector('.container')
             //creating cloud divs
             // Creating background, middle, foreground layers
-            for ( let i = 0; i < 10; i++) {
+            for ( let i = 0; i < 7; i++) {
                 let cloud = document.createElement("Div");
                 cloud.className = "cloud";
                 container.appendChild(cloud);
@@ -474,7 +474,6 @@ export default {
     updated() {
             let weatherType = this.weatherName.weather[0].main;
             // let weatherType = 'Clouds'; ///////////////DEBUGGING!!!!!!!!!!!!!!!!
-            console.log(weatherType);
             switch (weatherType) {
                 case 'Clouds' :
                     this.clouds();
