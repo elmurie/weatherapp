@@ -14,16 +14,16 @@ export default {
     data() {
         return {
             bgImage : '',
-            bgSnowDay : require('../assets/img/snow_day.jpg'),
-            bgSnowNight : require('../assets/img/snow_night.jpg'),
-            bgClearDay : require('../assets/img/clear_day.jpg'),
-            bgClearNight : require('../assets/img/clear_night.jpg'),
-            bgCloudNight : require('../assets/img/cloud_night.jpg'),
-            bgCloudDay : require('../assets/img/cloud_day.jpg'),
-            bgFogDay : require('../assets/img/fog_day.webp'),
-            bgFogNight : require('../assets/img/fog_night.jpg'),
-            bgThunderDay : require('../assets/img/thunder_day.jpg'),
-            bgThunderNight : require('../assets/img/thunder_night.webp'),
+            bgSnowDay : 'https://i.imgur.com/Ut2oCwE.jpg',
+            bgSnowNight : 'https://i.imgur.com/0UxlOXW.jpg',
+            bgClearDay : 'https://i.imgur.com/7RqQU6w.jpg',
+            bgClearNight : 'https://i.imgur.com/oJnLah8.jpg',
+            bgCloudNight : 'https://i.imgur.com/IBVGJVt.jpg',
+            bgCloudDay : 'https://i.imgur.com/uT1bkiV.jpg',
+            bgFogDay : 'https://i.imgur.com/GQxsJmo.jpg',
+            bgFogNight : 'https://i.imgur.com/spAgSaA.jpg',
+            bgThunderDay : 'https://i.imgur.com/ERbhi2v.jpg',
+            bgThunderNight : 'https://i.imgur.com/5r7ZR1H.jpg',
         }
     },
     methods: {

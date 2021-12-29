@@ -25,6 +25,12 @@
           <div class="weather">{{weather.weather[0].main}}</div>
         </div>
       </div>
+      <div class="message no-result" v-else-if="weather.cod == '400' || weather.cod == '404'">
+        <h2>Enter a valid city</h2>
+      </div>
+      <div class="message enter" v-else>
+        <h2>Check the weather!</h2>
+      </div>
     </main>
   </div>
 </template>
@@ -60,6 +66,7 @@ export default {
         .then(res => {
           return res.json();
         }).then(this.setResults);
+        this.query = '';
       }
     },
     setResults(results) {
@@ -96,7 +103,7 @@ body {
 }
 
 #app {
-  background-color: blue;
+  background-image: url('https://media.cntraveler.com/photos/581ca7f96928748a1e19f0b6/16:9/w_2560%2Cc_limit/Kirkjufell-Iceland-GettyImages-482743085.jpg');
   background-size: cover;
   background-position: bottom;
   transition: .4s;
@@ -107,7 +114,7 @@ body {
 main {
   min-height: 100vh;
   padding: 25px;
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.75));
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.75));
   z-index: 2;
 }
 .search-box {
@@ -115,21 +122,26 @@ main {
   margin-bottom: 30px;
 }
 .search-box .search-bar {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    color: #313131;
-    font-size: 20px;
-    font-weight: 400;
-    appearance: none;
-    border: none;
-    outline: none;
-    background: none;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 15px;
-    transition: .4s;
-  }
+  display: block;
+  width: 100%;
+  padding: 15px;
+  color: #313131;
+  font-size: 20px;
+  font-weight: 400;
+  appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  transition: .4s;
+}
+
+::placeholder {
+  color: rgb(31, 31, 31);
+  font-weight: 700;
+}
 
 .search-box .search-bar:focus {
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.25);
@@ -183,6 +195,15 @@ main {
   font-size: 30px;
   font-weight: 500;
 
+}
+
+.message {
+  text-align: center;
+}
+.message h2 {
+  color : #fff;
+  text-shadow: 1px 3px rgba(0, 0, 0, 0.25);
+  font-size: 54px;
 }
 
 </style>
