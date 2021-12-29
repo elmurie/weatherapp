@@ -220,7 +220,7 @@ export default {
             anime({
                 targets : '.middle .raindrop',
                 top : "105%",
-                duration : 3000,
+                duration : 1500,
                 loop : true,
                 easing : 'linear',
                 direction : 'normal',
@@ -229,13 +229,56 @@ export default {
             anime({
                 targets : '.front .raindrop',
                 top : "105%",
-                duration : 2000,
+                duration : 1000,
                 loop : true,
                 easing : 'linear',
                 direction : 'normal',
                 delay : anime.stagger(50)
             });
 
+        },
+        fog() {
+            this.resetAnimation();
+            let container = document.querySelector('.container')
+            // Creating background, middle, foreground layers
+            for ( let i = 0; i < 3; i++) {
+                let fogBank = document.createElement("Div");
+                fogBank.className = "fogbank";
+                container.appendChild(fogBank);
+            }
+            // assigning respective classes to all 3 layers
+            const fogBankList = container.childNodes;
+            const layerNames = ['back', 'middle', 'front']
+            for ( let j = 0; j < fogBankList.length; j++) {
+                fogBankList[j].classList.add(layerNames[j]);
+                fogBankList[j].style.position = 'absolute';
+                fogBankList[j].style.width = '100%';
+                fogBankList[j].style.bottom = '0';
+            }
+            anime({
+                targets : '.back.fogbank',
+                height : ['45%', '48%'],
+                duration : 7000,
+                loop : true,
+                easing : 'linear',
+                direction : 'alternate',
+            });
+            anime({
+                targets : '.middle.fogbank',
+                height : ['45%', '39%'],
+                duration : 8000,
+                loop : true,
+                easing : 'linear',
+                direction : 'alternate',
+            });
+            anime({
+                targets : '.front.fogbank',
+                height : ['38%', '31%'],
+                duration : 6400,
+                loop : true,
+                easing : 'linear',
+                direction : 'alternate',
+            });
         },
         clear() {
             this.resetAnimation();
@@ -245,50 +288,11 @@ export default {
             this.resetAnimation();
             alert('thunderstorm');
         },
-        drizzle() {
-            this.resetAnimation();
-            alert('drizzle');
-        },
-        mist() {
-            this.resetAnimation();
-            alert('mist');
-        },
-        smoke() {
-            this.resetAnimation();
-            alert('smoke');
-        },
-        haze() {
-            this.resetAnimation();
-            alert('haze');
-        },
-        dust() {
-            this.resetAnimation();
-            alert('dust');
-        },
-        fog() {
-            this.resetAnimation();
-            alert('fog');
-        },
-        sand() {
-            this.resetAnimation();
-            alert('sand');
-        },
-        ash() {
-            this.resetAnimation();
-            alert('ash');
-        },
-        squall() {
-            this.resetAnimation();
-            alert('squall');
-        },
-        tornado() {
-            this.resetAnimation();
-            alert('tornado');
-        }
-
     },
     updated() {
             let weatherType = this.weatherName.weather[0].main;
+            // let weatherType = 'Fog'; ///////////////DEBUGGING!!!!!!!!!!!!!!!!
+            console.log(weatherType);
             switch (weatherType) {
                 case 'Clouds' :
                     this.clouds();
@@ -300,7 +304,7 @@ export default {
                     this.thunderstorm();
                     break;
                 case 'Drizzle' :
-                    this.drizzle();
+                    this.rain();
                     break;
                 case 'Rain' :
                     this.rain();
@@ -309,34 +313,34 @@ export default {
                     this.snow();
                     break;
                 case 'Mist' :
-                    this.mist();
+                    this.fog();
                     break;
                 case 'Smoke' :
-                    this.smoke();
+                    this.fog();
                     break;
                 case 'Haze' :
-                    this.haze();
+                    this.fog();
                     break;
                 case 'Dust' :
-                    this.dust();
+                    this.fog();
                     break;
                 case 'Fog' :
                     this.fog();
                     break;
                 case 'Sand' :
-                    this.sand();
+                    this.fog();
                     break;
                 case 'Ash' :
-                    this.ash();
+                    this.fog();
                     break;
                 case 'Squall' :
-                    this.squall();
+                    this.fog();
                     break;
                 case 'Tornado' :
-                    this.tornado();
+                    this.fog();
                     break;
                 default: 
-                    console.log('Okay')
+                    console.log('No weather event')
             }
         }
 }
@@ -471,7 +475,26 @@ export default {
     .layer.front{
         z-index: 0;
     }
-    /* RAIN */ 
+    /* FOG */ 
+    .fogbank.back {
+        z-index: -2;
+        background-color: #fff;
+        height: 50%;
+        opacity: .3;
+    }
+    .fogbank.middle {
+        background-color: #fff;
+        z-index: -1;
+        height: 45%;
+        opacity: .4;
+    }
+    .fogbank.front {
+        z-index: 0;
+        background-color: #fff;
+        height: 30%;
+        opacity: .5;
+
+    }
 
 }
 </style>
