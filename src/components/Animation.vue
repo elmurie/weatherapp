@@ -48,25 +48,20 @@ export default {
             }
             let container = document.querySelector('.container')
             //creating cloud divs
-            let cloud = document.createElement("Div");
-            cloud.className = "cloud";
-            container.appendChild(cloud);
-            let cloud2 = document.createElement("Div");
-            cloud2.className = "cloud-2";
-            container.appendChild(cloud2);
-            let cloud3 = document.createElement("Div");
-            cloud3.className = "cloud-3";
-            container.appendChild(cloud3);
+            // Creating background, middle, foreground layers
+            for ( let i = 0; i < 10; i++) {
+                let cloud = document.createElement("Div");
+                cloud.className = "cloud";
+                container.appendChild(cloud);
+            }
+            // assigning respective classes to all 3 layers
+            const cloudList = container.childNodes;
+            const cloudNames = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight','nine', 'ten']
+            for ( let j = 0; j < cloudList.length; j++) {
+                cloudList[j].classList.add(cloudNames[j]);
+            }
             anime({
-                targets : '.cloud',
-                left : '105%',
-                duration : 6000,
-                loop : true,
-                easing : 'linear',
-                direction : 'normal'
-            });
-            anime({
-                targets : '.cloud-2',
+                targets : '.cloud.one',
                 left : '105%',
                 duration : 10000,
                 loop : true,
@@ -74,9 +69,55 @@ export default {
                 direction : 'normal'
             });
             anime({
-                targets : '.cloud-3',
+                targets : '.cloud.two',
+                delay: 500,
                 left : '105%',
-                duration : 18000,
+                duration : 10000,
+                loop : true,
+                easing : 'linear',
+                direction : 'normal'
+            });
+            anime({
+                targets : '.cloud.three',
+                delay: 750,
+                left : '105%',
+                duration : 15000,
+                loop : true,
+                easing : 'linear',
+                direction : 'normal'
+            });
+            anime({
+                targets : '.cloud.four',
+                delay: 200,
+                left : '105%',
+                duration : 10500,
+                loop : true,
+                easing : 'linear',
+                direction : 'normal'
+            });
+            anime({
+                targets : '.cloud.five',
+                delay: 1000,
+                left : '105%',
+                duration : 9000,
+                loop : true,
+                easing : 'linear',
+                direction : 'normal'
+            });
+            anime({
+                targets : '.cloud.six',
+                delay: 800,
+                left : '105%',
+                duration : 20000,
+                loop : true,
+                easing : 'linear',
+                direction : 'normal'
+            });
+            anime({
+                targets : '.cloud.seven',
+                delay: 1000,
+                left : '105%',
+                duration : 41000,
                 loop : true,
                 easing : 'linear',
                 direction : 'normal'
@@ -346,79 +387,93 @@ export default {
             }
             // creating raindrops in the background
             const backLayer = document.querySelector('.back')
-            for ( let k = 0; k < this.randomNumberObject() + 500; k++) {
+            for ( let k = 0; k < 2000; k++) {
                 let raindrop = document.createElement("Div");
                 backLayer.appendChild(raindrop);
                 raindrop.classList.add('raindrop');
                 raindrop.style.position = 'absolute';
-                raindrop.style.top = `${this.randomObjectposition() - 100}%`;
+                raindrop.style.top = `-5%`;
                 raindrop.style.left = `${this.randomObjectposition()}%`;
-                raindrop.style.width = '1px';
-                raindrop.style.height = '6px';
-                raindrop.style.background = '#ededed';
+                raindrop.style.width = '2px';
+                raindrop.style.height = '9px';
+                raindrop.style.background = '#ffffff';
                 raindrop.style.borderRadius = '25px';
             }
             // creating raindrops in the middle layer
             const middleLayer = document.querySelector('.middle')
-            for ( let k = 0; k < this.randomNumberObject() + 500; k++) {
+            for ( let k = 0; k < 200; k++) {
                 let raindrop = document.createElement("Div");
                 raindrop.classList.add('raindrop');
                 middleLayer.appendChild(raindrop);
                 raindrop.style.position = 'absolute';
-                raindrop.style.top = `${this.randomObjectposition() - 100}%`;
+                raindrop.style.top = `-5%`;
                 raindrop.style.left = `${this.randomObjectposition()}%`;
                 raindrop.style.width = '2px';
                 raindrop.style.height = '12px';
-                raindrop.style.background = '#ededed';
+                raindrop.style.background = '#ffffff';
                 raindrop.style.borderRadius = '25px';
 
             }
             // creating raindrops in the foreground
             const frontLayer = document.querySelector('.front')
-            for ( let k = 0; k < this.randomNumberObject() + 500; k++) {
+            for ( let k = 0; k < 200; k++) {
                 let raindrop = document.createElement("Div");
                 raindrop.classList.add('raindrop');
                 frontLayer.appendChild(raindrop);
                 raindrop.style.position = 'absolute';
-                raindrop.style.top = `${this.randomObjectposition() - 100}%`;
+                raindrop.style.top = `-5%`;
                 raindrop.style.left = `${this.randomObjectposition()}%`;
-                raindrop.style.width = '3px';
+                raindrop.style.width = '2px';
                 raindrop.style.height = '18px';
                 raindrop.style.background = '#ededed';
                 raindrop.style.borderRadius = '25px';
             }
+            // creating lightning
+            let lightning = document.createElement("Div");
+            lightning.className = "lightning";
+            container.appendChild(lightning);
             anime({
                 targets : '.back .raindrop',
                 top : "105%",
-                duration : 2000,
+                duration : 200,
                 loop : true,
                 easing : 'linear',
                 direction : 'normal',
-                delay : anime.stagger(50)
+                delay : anime.stagger(20)
             });
             anime({
                 targets : '.middle .raindrop',
                 top : "105%",
-                duration : 800,
+                duration : 100,
+                loop : true,
+                easing : 'linear',
+                direction : 'normal',
+                delay : anime.stagger(20)
+            });
+            anime({
+                targets : '.front .raindrop',
+                top : "105%",
+                duration : 50,
                 loop : true,
                 easing : 'linear',
                 direction : 'normal',
                 delay : anime.stagger(50)
             });
             anime({
-                targets : '.front .raindrop',
-                top : "105%",
-                duration : 500,
+                targets : '.lightning',
+                backgroundColor : '#ffffff',
+                delay: 5000,
+                duration : 50,
                 loop : true,
-                easing : 'linear',
-                direction : 'normal',
-                delay : anime.stagger(50)
+                easing : 'easeOutElastic',
+                direction : 'alternate',
             });
+
         },
     },
     updated() {
-            // let weatherType = this.weatherName.weather[0].main;
-            let weatherType = 'Fog'; ///////////////DEBUGGING!!!!!!!!!!!!!!!!
+            let weatherType = this.weatherName.weather[0].main;
+            // let weatherType = 'Clouds'; ///////////////DEBUGGING!!!!!!!!!!!!!!!!
             console.log(weatherType);
             switch (weatherType) {
                 case 'Clouds' :
@@ -489,8 +544,8 @@ export default {
     background-repeat: no-repeat;
     transition: .4s;
     /* CLOUDS */ 
-    .cloud {
-        background-color: #d8d8d8;
+    .cloud.one {
+        background-color: #cecece;
         width: 150px;
         height: 50px;
         border-radius: 100px;
@@ -498,6 +553,7 @@ export default {
         top: 20%;
         left: -105%;
         opacity: .5;
+        z-index: 10;
         -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.55); 
         box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.55);
         &::after, 
@@ -523,14 +579,14 @@ export default {
             left:70px;
         }
     }
-    .cloud-2 {
-        background-color: #e2e2e2;
+    .cloud.two {
+        background-color: #cecece;
         width: 259px;
         height: 69px;
         border-radius: 100px;
         position: absolute;
         top: 15%;
-        left: -105%;
+        left: -100%;
         opacity: .5;
         z-index: -1;
         -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.55); 
@@ -558,8 +614,8 @@ export default {
             left: 148px;
         }
     }
-    .cloud-3 {
-        background-color: #c9c9c9;
+    .cloud.three {
+        background-color: #cecece;
         width: 518px;
         height: 138px;
         border-radius: 200px;
@@ -568,6 +624,146 @@ export default {
         left: -200%;
         opacity: .5;
         z-index: -2;
+        -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.55); 
+        box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.55);
+        &::after, 
+        &::before{
+            content:"";
+            position:absolute;
+            display:inline-block;
+            background:inherit;
+            border-radius:inherit;
+            -webkit-box-shadow: 11px -15px 15px -9px rgba(0,0,0,0.55); 
+            box-shadow: 11px -15px 15px -9px rgba(0,0,0,0.55);
+        }
+        &::after{
+            width: 210px;
+            height: 210px;
+            top: -130px;
+            left: 118px;
+        }
+        &::before{
+            width: 180px;
+            height: 180px;
+            top: -76px;
+            left: 296px;
+        }
+    }
+    .cloud.four {
+        background-color: #cecece;
+        width: 148px;
+        height: 39.42px;
+        border-radius: 100px;
+        position: absolute;
+        top: 25%;
+        left: -200%;
+        opacity: .5;
+        z-index: 3;
+        -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.55); 
+        box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.55);
+        &::after, 
+        &::before{
+            content:"";
+            position:absolute;
+            display:inline-block;
+            background:inherit;
+            border-radius:inherit;
+            -webkit-box-shadow: 11px -15px 15px -9px rgba(0,0,0,0.55); 
+            box-shadow: 11px -15px 15px -9px rgba(0,0,0,0.55);
+        }
+        &::after{
+            width: 60px;
+            height: 60px;
+            top: -38px;
+            left: 76px;
+        }
+        &::before{
+            width: 51.42px;
+            height: 51.42px;
+            top: -29px;
+            left: 31px;
+        }
+    }
+    .cloud.five {
+        background-color: #cecece;
+        width: 397px;
+        height: 130px;
+        border-radius: 200px;
+        position: absolute;
+        top: 80%;
+        left: -200%;
+        opacity: .5;
+        z-index: 4;
+        -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.55); 
+        box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.55);
+        &::after, 
+        &::before{
+            content:"";
+            position:absolute;
+            display:inline-block;
+            background:inherit;
+            border-radius:inherit;
+            -webkit-box-shadow: 11px -15px 15px -9px rgba(0,0,0,0.55); 
+            box-shadow: 11px -15px 15px -9px rgba(0,0,0,0.55);
+        }
+        &::after{
+            width: 165px;
+            height: 165px;
+            top: -106px;
+            left: 34px;
+        }
+        &::before{
+            width: 128px;
+            height: 128px;
+            top: -76px;
+            left: 176px;
+        }
+    }
+    .cloud.six {
+        background-color: #cecece;
+        width: 150px;
+        height: 70px;
+        border-radius: 200px;
+        position: absolute;
+        top: 40%;
+        left: -200%;
+        opacity: .5;
+        z-index: 5;
+        -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.55); 
+        box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.55);
+        &::after, 
+        &::before{
+            content:"";
+            position:absolute;
+            display:inline-block;
+            background:inherit;
+            border-radius:inherit;
+            -webkit-box-shadow: 11px -15px 15px -9px rgba(0,0,0,0.55); 
+            box-shadow: 11px -15px 15px -9px rgba(0,0,0,0.55);
+        }
+        &::after{
+            width: 40px;
+            height: 40px;
+            top: -24px;
+            left: 34px;
+        }
+        &::before{
+            width: 69px;
+            height: 69px;
+            top: -44px;
+            left: 63px;
+        }
+    }
+    .cloud.seven {
+        background-color: #cecece;
+        width: 518px;
+        height: 138px;
+        border-radius: 200px;
+        position: absolute;
+        top: 50%;
+        left: -200%;
+        opacity: .5;
+        z-index: 6;
         -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.55); 
         box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.55);
         &::after, 
@@ -633,6 +829,15 @@ export default {
         background-color: #fff;
         height: 30%;
         opacity: .1;
+    }
+    /* THUNDERSTORM */
+    .lightning {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        opacity: .5;
     }
 
 }
