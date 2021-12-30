@@ -50,8 +50,10 @@
       <div class="message no-result" v-else-if="weather.cod == '400' || weather.cod == '404'">
         <h2>Please enter a valid city</h2>
       </div>
-      <div class="message enter" v-else>
-        <h2>WEATHER APP</h2>
+      <div class="welcome" v-else>
+        <div class="message enter" >
+          <h2>WEATHER APP</h2>
+        </div>
       </div>
     </main>
   </div>
@@ -72,8 +74,8 @@ export default {
       weather : {},
       isItDayOrNight : '',
       hourBg : 0,
-      nightBg : 'https://i.imgur.com/G8HPRuc.jpg',
-      dayBg : 'https://i.imgur.com/fbTfPz5.jpg' 
+      nightBg : require('../src/assets/nightBG.png'),
+      dayBg : require('../src/assets/dayBG.png') 
     }
   },
   methods: {
@@ -119,7 +121,7 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Rammetto+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 * {
   margin: 0;
@@ -135,6 +137,7 @@ body {
 #app {
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
   transition: .4s;
   position: relative;
   z-index: 0;
@@ -267,11 +270,8 @@ main {
 .message h2 {
   color : #ffffff;
   text-shadow: 9px 4px 1px rgba(0, 0, 0, 0.25);
-  font-size: 54px;
-}
-
-.enter {
-  font-family: 'Rammetto One', cursive;
+  font-size: 39px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 </style>
