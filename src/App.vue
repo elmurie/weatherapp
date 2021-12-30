@@ -85,12 +85,6 @@ export default {
         this.isItDayOrNight = 'Night';
       }
     },
-    bgChooser() {
-      let d = new Date();
-      let hour = d.getHours;
-      console.log('ore', hour)
-      this.hourBg = hour;
-    },
     fetchWeather (e) {
       if (e.key == "Enter") {
         fetch(`${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
@@ -119,7 +113,6 @@ export default {
   created() {
       let d = new Date();
       let hour = d.getHours();
-      console.log('ore', hour)
       this.hourBg = hour;
   }
 }
@@ -273,7 +266,7 @@ main {
 }
 .message h2 {
   color : #ffffff;
-  text-shadow: 1px 3px rgba(0, 0, 0, 0.25);
+  text-shadow: 9px 4px 1px rgba(0, 0, 0, 0.25);
   font-size: 54px;
 }
 
