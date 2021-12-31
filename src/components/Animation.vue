@@ -539,10 +539,10 @@ export default {
     z-index: -1;
     overflow: hidden;
     background: rgba(0, 0, 0, 0.1);
-    background-blend-mode: multiply;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
+    // background-blend-mode: multiply;
+    // background-size: cover;
+    // background-position: center center;
+    // background-repeat: no-repeat;
     transition: .4s;
     /* CLOUDS */ 
     .cloud.one {
