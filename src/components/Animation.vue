@@ -22,7 +22,7 @@ export default {
             bgClearNight : 'https://i.imgur.com/oJnLah8.jpg',
             bgCloudNight : 'https://i.imgur.com/IBVGJVt.jpg',
             bgCloudDay : 'https://i.imgur.com/uT1bkiV.jpg',
-            bgFogDay : 'https://i.imgur.com/GQxsJmo.jpg',
+            bgFogDay : 'https://i.imgur.com/LIKO4JH.jpg',
             bgFogNight : 'https://i.imgur.com/spAgSaA.jpg',
             bgThunderDay : 'https://i.imgur.com/ERbhi2v.jpg',
             bgThunderNight : 'https://i.imgur.com/5r7ZR1H.jpg',
