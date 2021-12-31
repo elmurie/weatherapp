@@ -1,5 +1,5 @@
 <template>
-    <div class="container" v-if="weatherName.cod != 404 && weatherName.cod != undefined" :style="`background-image: url(${bgImage})`">
+    <div class="container" v-if="weatherName.cod != 404 && weatherName.cod != undefined" :style="`background-image: url(${bgImage}); background-size: ${viewport}`">
     </div>
 </template>
 
@@ -9,7 +9,9 @@ export default {
     name : 'Animation',
     props : {
         weatherName : Object,
-        dayOrNight : String
+        dayOrNight : String,
+        viewport : String
+
     },
     data() {
         return {
