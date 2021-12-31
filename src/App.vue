@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :style="hourBg >= 6 && hourBg <= 18 ? `background-image : url(${dayBg}); background-size: ${bgSize()}` : `background-image : url(${nightBg})); background-size: ${bgSize()}`">
+  <div id="app" :style="hourBg >= 6 && hourBg <= 18 ? `background-image : url(${dayBg});` : `background-image : url(${nightBg})`">
     <Animation :weatherName="weather" :dayOrNight="isItDayOrNight" :viewport="bgSize()"/>
     <main>
       <div class="search-box">

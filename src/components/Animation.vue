@@ -539,6 +539,7 @@ export default {
     z-index: -1;
     overflow: hidden;
     background: rgba(0, 0, 0, 0.1);
+    background-size: cover;
     // background-blend-mode: multiply;
     background-position: center;
     transition: .4s;
