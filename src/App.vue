@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :style="hourBg >= 6 && hourBg <= 18 ? `background-image : url(${dayBg})` : `background-image : url(${nightBg})`">
+  <div id="app" :style="hourBg >= 6 && hourBg <= 18 ? `background-image : url(${dayBg}); background-size: ${bgSize()}` : `background-image : url(${nightBg})); background-size: ${bgSize()}`">
     <Animation :weatherName="weather" :dayOrNight="isItDayOrNight"/>
     <main>
       <div class="search-box">
@@ -79,6 +79,11 @@ export default {
     }
   },
   methods: {
+    bgSize(){
+      let wiewportWidth = window.innerWidth;
+      let wiewportHeight = window.innerHeight;
+      return `${wiewportWidth} ${wiewportHeight}`
+    },
     dayNight() {
       let letterPosition = this.weather.weather[0].icon.length - 1;
       if (this.weather.weather[0].icon[letterPosition] == 'd') {
@@ -135,10 +140,7 @@ body {
 }
 
 #app {
-  background-size: cover;
-  overflow: hidden;
-  background-repeat: no-repeat;
-  background-position: center;
+  background-position: top;
   transition: .4s;
   position: relative;
   z-index: 0;
