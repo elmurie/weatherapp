@@ -540,9 +540,7 @@ export default {
     overflow: hidden;
     background: rgba(0, 0, 0, 0.1);
     // background-blend-mode: multiply;
-    // background-size: cover;
-    // background-position: center center;
-    // background-repeat: no-repeat;
+    background-position: center;
     transition: .4s;
     /* CLOUDS */ 
     .cloud.one {
