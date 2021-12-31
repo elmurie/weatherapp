@@ -135,7 +135,8 @@ body {
 }
 
 #app {
-  background-size: 100% 100%;
+  background-size: auto 100%;
+  overflow: hidden;
   background-repeat: no-repeat;
   background-position: center;
   transition: .4s;
