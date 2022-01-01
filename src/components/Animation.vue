@@ -475,7 +475,7 @@ export default {
     },
     updated() {
             let weatherType = this.weatherName.weather[0].main;
-            // let weatherType = 'Clouds'; ///////////////DEBUGGING!!!!!!!!!!!!!!!!
+            // let weatherType = 'Thunderstorm'; // DEBUGGING LINE,
             switch (weatherType) {
                 case 'Clouds' :
                     this.clouds();

@@ -41,7 +41,7 @@
               </div>
               <div class="wind">
                 <h6 class="title">WIND</h6>
-                <h6 class="value">{{weather.wind.speed}}m/s</h6>
+                <h6 class="value">{{weather.wind.speed}} m/s</h6>
               </div>
             </div>
           </div>
