@@ -8,6 +8,7 @@
           class="search-bar"
           type="text"
           placeholder="Search for a city..."
+          autocomplete="off"
           v-model="query"
           @keyup="fetchWeather"
         >
