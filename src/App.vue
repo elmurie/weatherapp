@@ -1,7 +1,7 @@
 <template>
-  <div id="app" :style="hourBg >= 6 && hourBg <= 18 ? `background-image : url(${dayBg});` : `background-image : url(${nightBg})`">
-    <Animation :weatherName="weather" :dayOrNight="isItDayOrNight" :viewport="bgSize()"/>
-    <main>
+  <div id="app" :style="hourBg >= 6 && hourBg <= 18 ? `background-image : url(${dayBg});` : `background-image : url(${nightBg}); height: ${viewportHeight}px` ">
+    <Animation :weatherName="weather" :dayOrNight="isItDayOrNight" :viewportWidth="viewportWidth" :viewportHeight="viewportHeight"/>
+    <main :style="`height: ${viewportHeight}px`">
       <div class="search-box">
         <input 
           class="search-bar"
@@ -75,15 +75,14 @@ export default {
       isItDayOrNight : '',
       hourBg : 0,
       nightBg : require('../src/assets/nightBG.png'),
-      dayBg : require('../src/assets/dayBG.png') 
+      dayBg : require('../src/assets/dayBG.png'),
+      viewportWidth : null,
+      viewportHeight : null
+      
     }
   },
   methods: {
-    bgSize(){
-      let wiewportWidth = window.innerWidth;
-      let wiewportHeight = window.innerHeight;
-      return `${wiewportWidth} ${wiewportHeight}`
-    },
+    // Displays Day or Night according to API weather icon  
     dayNight() {
       let letterPosition = this.weather.weather[0].icon.length - 1;
       if (this.weather.weather[0].icon[letterPosition] == 'd') {
@@ -92,6 +91,7 @@ export default {
         this.isItDayOrNight = 'Night';
       }
     },
+    // API call
     fetchWeather (e) {
       if (e.key == "Enter") {
         fetch(`${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
@@ -101,6 +101,7 @@ export default {
         this.query = '';
       }
     },
+    // Puts results of API call into "weather" object
     setResults(results) {
       this.weather = results;
       this.dayNight();
@@ -118,9 +119,15 @@ export default {
     }
   },
   created() {
-      let d = new Date();
-      let hour = d.getHours();
-      this.hourBg = hour;
+    // defines current time to set day or night Homepage background image 
+    let d = new Date();
+    let hour = d.getHours();
+    this.hourBg = hour;
+    // Defines device's viewport sizes to be passed onto body, #app, main and .container elements
+    let viewportWidth = window.innerWidth;
+    let viewportHeight = window.innerHeight;
+    this.viewportWidth = viewportWidth;
+    this.viewportHeight = viewportHeight;
   }
 }
 </script>
@@ -147,7 +154,7 @@ body {
 }
 
 main {
-  min-height: 100vh;
+  height: 100%;
   padding: 25px;
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
   z-index: 2;

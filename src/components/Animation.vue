@@ -1,5 +1,5 @@
 <template>
-    <div class="container" v-if="weatherName.cod != 404 && weatherName.cod != undefined" :style="`background-image: url(${bgImage}); background-size: ${viewport}`">
+    <div class="container" v-if="weatherName.cod != 404 && weatherName.cod != undefined" :style="`background-image: url(${bgImage}); height: ${viewportHeight}px`">
     </div>
 </template>
 
@@ -10,7 +10,8 @@ export default {
     props : {
         weatherName : Object,
         dayOrNight : String,
-        viewport : String
+        viewportWidth : Number,
+        viewportHeight : Number
 
     },
     data() {
@@ -475,7 +476,7 @@ export default {
     },
     updated() {
             let weatherType = this.weatherName.weather[0].main;
-            // let weatherType = 'Thunderstorm'; // DEBUGGING LINE,
+            // let weatherType = 'Fog'; // DEBUGGING LINE FORCING WEATHER EVENT FOR TESTING
             switch (weatherType) {
                 case 'Clouds' :
                     this.clouds();
@@ -533,14 +534,14 @@ export default {
 .container {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 820px;
     top:0;
     left: 0;
     z-index: -1;
     overflow: hidden;
     background: rgba(0, 0, 0, 0.1);
+    background-repeat: no-repeat;
     background-size: cover;
-    // background-blend-mode: multiply;
     background-position: center;
     transition: .4s;
     /* CLOUDS */ 
