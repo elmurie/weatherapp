@@ -3,7 +3,8 @@
     <Animation :weatherName="weather" :dayOrNight="isItDayOrNight" :viewportWidth="viewportWidth" :viewportHeight="viewportHeight"/>
     <main :style="`height: ${viewportHeight}px`">
       <div class="search-box">
-        <input 
+        <input
+          id="test"
           class="search-bar"
           type="text"
           placeholder="Search for a city..."
@@ -99,6 +100,7 @@ export default {
           return res.json();
         }).then(this.setResults);
         this.query = '';
+        document.getElementById("test").blur();
       }
     },
     // Puts results of API call into "weather" object
