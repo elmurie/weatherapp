@@ -10,7 +10,7 @@
           placeholder="Search for a city..."
           autocomplete="off"
           v-model="query"
-          @keyup="fetchWeather"
+          @keyup="getQuery"
         >
       </div>
       <div class="weather-wrap" v-if="typeof weather.main != 'undefined' ">
@@ -71,7 +71,8 @@ export default {
   data() {
     return {
       api_key : '5c91c46023d7f1646dce8d2f732f5e3b',
-      url_base: 'https://api.openweathermap.org/data/2.5/',
+      url_weather_base: 'https://api.openweathermap.org/data/2.5/',
+      url_location_base: 'http://api.openweathermap.org/geo/1.0/reverse?',
       query: '',
       weather : {},
       isItDayOrNight : '',
@@ -94,16 +95,42 @@ export default {
       }
     },
     // API call
-    fetchWeather (e) {
-      if (e.key == "Enter") {
-        fetch(`${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
+    fetchWeather () {
+        fetch(`${this.url_weather_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
         .then(res => {
           return res.json();
         }).then(this.setResults);
         this.query = '';
         document.getElementById("search").blur();
+    },
+    // Get location from search input
+    getQuery(e) {
+      if (e.key == "Enter") {
+        this.fetchWeather();
       }
     },
+    // Get location from Geolocation API
+    getPosition() {
+      const successCallback = (position)=> {
+        // this.currentPosition = position;
+        // console.log(this.currentPosition);
+        fetch(`${this.url_location_base}lat=${position.coords.latitude}&lon=${position.coords.longitude}&limit=2&APPID=${this.api_key}`)
+        .then(res => {
+          return res.json();
+        })
+        .then(res => {
+            this.query = res[0].name;
+            this.fetchWeather();
+          });
+      }
+      const errorCallback = (error)=> {
+        this.currentPosition = error.message;
+        console.log(this.currentPosition)
+      }
+      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    },
+
+
     // Puts results of API call into "weather" object
     setResults(results) {
       this.weather = results;
@@ -131,7 +158,10 @@ export default {
     let viewportHeight = window.innerHeight;
     this.viewportWidth = viewportWidth;
     this.viewportHeight = viewportHeight;
-  }
+    setTimeout(() => {
+      this.getPosition();
+    }, 1000);
+  },
 }
 </script>
 
@@ -145,7 +175,7 @@ export default {
 }
 
 body {
-  margin:k0;
+  margin:0;
   font-family: 'Roboto', sans-serif;
 }
 
