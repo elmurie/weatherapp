@@ -170,6 +170,8 @@ export default {
     // Puts results of API call into "weather" object
     setResults(results) {
       this.weather = results;
+      this.city = '';
+      this.country = '';
       this.dayNight();
     },
     dateBuilder() {
@@ -251,7 +253,7 @@ main {
   gap: 10px;
   .search-bar,
   .country-select,
-  .country-select option {
+  .country-select {
     text-align: center;
     width: 100%;
     max-width: 500px;
@@ -265,14 +267,17 @@ main {
     background: none;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
     background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 15px;
+    border-radius: 25px;
     transition: .4s;
   }
   .country-select {
     padding: 5px;
+    font-size: 15px;
+    font-weight: bold;
     option {
       max-width: 100%;
-      font-size: 10px;
+      font-size: 12px;
+      white-space: break-spaces;
     }
   }
 }
@@ -284,10 +289,12 @@ main {
 
 }
 
-.search-box .search-bar:focus {
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.25);
-  background-color: rgba(255, 255, 255, 0.75);
-  border-radius: 25px;
+.search-box {
+  .search-bar:focus,
+  .country-select:focus{
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.25);
+    background-color: rgba(255, 255, 255, 0.75);
+  }
 }
 
 .location-box .location {
