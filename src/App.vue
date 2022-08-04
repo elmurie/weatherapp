@@ -9,9 +9,15 @@
           type="text"
           placeholder="Search for a city..."
           autocomplete="off"
-          v-model="query"
-          @keyup="getQuery"
+          v-model="city"
+          @keyup="cityHandler"
         >
+        <select class="country-select" v-model="country" @change="countryHandler">
+          <option value="" disabled selected hidden>Select a country</option>
+          <option value=""></option>
+          <option :value="country.alpha2" v-for="(country, countryIndex) in countries" :key='countryIndex'>{{country.name}}</option>
+        </select>
+
       </div>
       <div class="weather-wrap" v-if="typeof weather.main != 'undefined' ">
         <div class="location-box">
@@ -73,7 +79,10 @@ export default {
       api_key : '5c91c46023d7f1646dce8d2f732f5e3b',
       url_weather_base: 'https://api.openweathermap.org/data/2.5/',
       url_location_base: 'https://api.openweathermap.org/geo/1.0/reverse?',
+      city: '',
+      country: '',
       query: '',
+      countries: [],
       weather : {},
       isItDayOrNight : '',
       hourBg : 0,
@@ -81,11 +90,11 @@ export default {
       dayBg : require('../src/assets/dayBG.png'),
       viewportWidth : null,
       viewportHeight : null
-      
+
     }
   },
   methods: {
-    // Displays Day or Night according to API weather icon  
+    // Displays Day or Night according to API weather icon
     dayNight() {
       let letterPosition = this.weather.weather[0].icon.length - 1;
       if (this.weather.weather[0].icon[letterPosition] == 'd') {
@@ -94,21 +103,51 @@ export default {
         this.isItDayOrNight = 'Night';
       }
     },
-    // API call
-    fetchWeather () {
-        fetch(`${this.url_weather_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
-        .then(res => {
-          return res.json();
-        }).then(this.setResults);
-        this.query = '';
-        document.getElementById("search").blur();
+    // get country codes for select field
+    getCountryCodes() {
+      fetch('https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regional-Codes/master/slim-2/slim-2.json')
+      .then(res => {
+        return res.json();
+      })
+      // clean up alpha-2 key
+      .then(res => {
+        res.map(country => {
+          country['alpha2']  = country['alpha-2'];
+          delete country['alpha-2'];
+          delete country['country-code'];
+        });
+        return res;
+      })
+      .then(res => this.countries = res);
     },
-    // Get location from search input
-    getQuery(e) {
-      if (e.key == "Enter") {
+    cityHandler(e){
+      if (e.key === 'Enter') {
         this.fetchWeather();
       }
     },
+    countryHandler(){
+      if (this.city !== '') {
+        setTimeout(() => {
+          this.fetchWeather();
+        }, 50);
+      }
+    },
+    // Concatenates city and country for the query
+    getQuery() {
+        this.query = `${this.city},${this.country}`; 
+        // this.fetchWeather();
+    },
+    // API call
+    fetchWeather () {
+      console.log(`${this.url_weather_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
+      fetch(`${this.url_weather_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
+      .then(res => {
+        return res.json();
+      }).then(this.setResults);
+      // this.query = '';
+      document.getElementById("search").blur();
+    },
+    
     // Get location from Geolocation API
     getPosition() {
       const successCallback = (position)=> {
@@ -123,7 +162,6 @@ export default {
       }
       const errorCallback = (error)=> {
         this.currentPosition = error.message;
-        console.log(this.currentPosition)
       }
       navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
     },
@@ -138,7 +176,7 @@ export default {
       let d = new Date();
       let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-      
+
       let day = days[d.getDay()];
       let date = d.getDate();
       let month = months[d.getMonth()];
@@ -147,7 +185,7 @@ export default {
     }
   },
   created() {
-    // defines current time to set day or night Homepage background image 
+    // defines current time to set day or night Homepage background image
     let d = new Date();
     let hour = d.getHours();
     this.hourBg = hour;
@@ -159,11 +197,22 @@ export default {
     setTimeout(() => {
       this.getPosition();
     }, 1000);
+    this.getCountryCodes();
   },
+  watch : {
+    city(newcity) {
+      this.city = newcity;
+      this.getQuery();
+    },
+    country(newcountry) {
+      this.country = newcountry;
+      this.getQuery();
+    },
+  }
 }
 </script>
 
-<style>
+<style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 * {
@@ -195,22 +244,37 @@ main {
   margin-bottom: 20px;
   text-align: center;
 }
-.search-box .search-bar {
-  display: inline-block;
-  width: 100%;
-  max-width: 500px;
-  padding: 15px;
-  color: #313131;
-  font-size: 20px;
-  font-weight: 400;
-  appearance: none;
-  border: none;
-  outline: none;
-  background: none;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 15px;
-  transition: .4s;
+.search-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  .search-bar,
+  .country-select,
+  .country-select option {
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    padding: 15px;
+    color: #313131;
+    font-size: 20px;
+    font-weight: 400;
+    appearance: none;
+    border: none;
+    outline: none;
+    background: none;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    transition: .4s;
+  }
+  .country-select {
+    padding: 5px;
+    option {
+      max-width: 100%;
+      font-size: 10px;
+    }
+  }
 }
 
 ::placeholder {
