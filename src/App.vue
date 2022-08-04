@@ -72,7 +72,7 @@ export default {
     return {
       api_key : '5c91c46023d7f1646dce8d2f732f5e3b',
       url_weather_base: 'https://api.openweathermap.org/data/2.5/',
-      url_location_base: 'http://api.openweathermap.org/geo/1.0/reverse?',
+      url_location_base: 'https://api.openweathermap.org/geo/1.0/reverse?',
       query: '',
       weather : {},
       isItDayOrNight : '',
@@ -112,8 +112,6 @@ export default {
     // Get location from Geolocation API
     getPosition() {
       const successCallback = (position)=> {
-        // this.currentPosition = position;
-        // console.log(this.currentPosition);
         fetch(`${this.url_location_base}lat=${position.coords.latitude}&lon=${position.coords.longitude}&limit=2&APPID=${this.api_key}`)
         .then(res => {
           return res.json();
