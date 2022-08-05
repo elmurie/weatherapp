@@ -1,5 +1,8 @@
 <template>
   <div id="app" :style="hourBg >= 6 && hourBg <= 18 ? `background-image : url(${dayBg});` : `background-image : url(${nightBg}); height: ${viewportHeight}px` ">
+    <div class="load" v-if="loading">
+        <div class="loader"></div>
+      </div>
     <Animation :weatherName="weather" :dayOrNight="isItDayOrNight" :viewportWidth="viewportWidth" :viewportHeight="viewportHeight"/>
     <main :style="`height: ${viewportHeight}px`">
       <div class="search-box">
@@ -19,6 +22,7 @@
         </select>
 
       </div>
+      
       <div class="weather-wrap" v-if="typeof weather.main != 'undefined' ">
         <div class="location-box">
           <div class="location">{{weather.name}}, {{weather.sys.country}}</div>
@@ -89,11 +93,15 @@ export default {
       nightBg : require('../src/assets/nightBG.png'),
       dayBg : require('../src/assets/dayBG.png'),
       viewportWidth : null,
-      viewportHeight : null
-
+      viewportHeight : null,
+      loading: false
     }
   },
   methods: {
+    // shows or hides loader 
+    loaderHandler() {
+      this.loading = !this.loading;
+    },
     // Displays Day or Night according to API weather icon
     dayNight() {
       let letterPosition = this.weather.weather[0].icon.length - 1;
@@ -139,11 +147,13 @@ export default {
     },
     // API call
     fetchWeather () {
-      console.log(`${this.url_weather_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
       fetch(`${this.url_weather_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
       .then(res => {
+        this.loaderHandler();
         return res.json();
-      }).then(this.setResults);
+      })
+      .then(this.setResults)
+      .then(this.loaderHandler())
       // this.query = '';
       document.getElementById("search").blur();
     },
@@ -233,6 +243,29 @@ body {
   transition: .4s;
   position: relative;
   z-index: 0;
+  .load {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.664);
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .loader {
+      border: 10px solid #f3f3f3; /* Light grey */
+      border-top: 10px solid #0f213e; /* Blue */
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      animation: spin 0.9s linear infinite;
+    }
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 }
 
 main {
